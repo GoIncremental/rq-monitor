@@ -26,11 +26,3 @@ spec:
           ports:
             - containerPort: 9181
               protocol: TCP
-          volumeMounts:
-            - name: app-env
-              mountPath: /etc/secrets
-              readOnly: true
-      volumes:
-        - name: app-env
-          secret:
-            secretName: rq-monitor-edge-env
