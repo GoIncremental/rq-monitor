@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: rq-monitor-edge-v0.0.0
+  labels:
+    name: rq-monitor
+    env: edge
+    version: 0.0.0
+spec:
+  replicas: 1
+  selector:
+    name: rq-monitor
+    env: edge
+    version: 0.0.0
+  template:
+    metadata:
+      labels:
+        name: rq-monitor
+        env: edge
+        version: 0.0.0
+    spec:
+      containers:
+        - name: rq-monitor
+          image: eu.gcr.io/gi-harbour/rq-monitor:0.0.0
+          command: ["sh", "-c", "rq-dashboard -H redis-master-edge -P 6379"]
+          ports:
+            - containerPort: 9181
+              protocol: TCP
+          volumeMounts:
+            - name: app-env
+              mountPath: /etc/secrets
+              readOnly: true
+      volumes:
+        - name: app-env
+          secret:
+            secretName: rq-monitor-edge-env
