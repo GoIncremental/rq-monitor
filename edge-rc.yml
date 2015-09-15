@@ -1,27 +1,27 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: rq-monitor-edge-v0.0.8
+  name: rq-monitor-edge-v0.0.9
   labels:
     name: rq-monitor
     env: edge
-    version: 0.0.8
+    version: 0.0.9
 spec:
   replicas: 1
   selector:
     name: rq-monitor
     env: edge
-    version: 0.0.8
+    version: 0.0.9
   template:
     metadata:
       labels:
         name: rq-monitor
         env: edge
-        version: 0.0.8
+        version: 0.0.9
     spec:
       containers:
         - name: rq-monitor
-          image: eu.gcr.io/gi-harbour/rq-monitor:0.0.8
+          image: eu.gcr.io/gi-harbour/rq-monitor:0.0.9
           command: ["sh", "-c", "rq-dashboard -H redis-master-edge -P 6379 -D 1 --url-prefix /v1/db/rq-monitor --username test --password letmein"]
           ports:
             - containerPort: 9181
