@@ -1,4 +1,5 @@
 TAG=`cat version`
+PREVRC='UNDEFINED'
 
 container:
 	docker build -t goincremental/rq-monitor .
@@ -10,9 +11,12 @@ publish: container
 	docker tag -f goincremental/rq-monitor eu.gcr.io/gi-harbour/rq-monitor:$(TAG)
 	gcloud docker push eu.gcr.io/gi-harbour/rq-monitor
 
-edge: publish
+edge:
 	PREVRC=`kubectl get rc | grep -o -e 'rq-monitor-edge-v\d*.\d*.\d*'`
-	kubectl rolling-update $(PREVRC) -f edge-rc.yml update-period="1s"
+	echo PREVRC
+	echo "hi"
+	echo $(PREVRC)
+	kubectl rolling-update PREVRC -f edge-rc.yml update-period="1s"
 
 rc:
 	kubectl create -f rc.yml
