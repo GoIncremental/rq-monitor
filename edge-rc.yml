@@ -22,7 +22,7 @@ spec:
       containers:
         - name: rq-monitor
           image: eu.gcr.io/gi-harbour/rq-monitor:0.0.5
-          command: ["sh", "-c", "rq-dashboard -H redis-master-edge -P 6379 -D 1 --url-prefix /v1/db/rq-monitor"]
+          command: ["sh", "-c", "rq-dashboard -H redis-master-edge -P 6379 -D 1 --url-prefix /v1/db/rq-monitor --username test --password letmein"]
           ports:
             - containerPort: 9181
               protocol: TCP
